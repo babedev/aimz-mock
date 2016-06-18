@@ -1,0 +1,74 @@
+---
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: AIMz
+
+################################################################################
+#                  Host, Base Path, Schemes and Content Types                  #
+################################################################################
+host: aimz.herokuapp.com
+basePath: /api/v1
+schemes:
+  - https
+produces:
+  - application/json
+  
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  athlete-id:
+    name: athlete-id
+    in: path
+    type: string
+    required: true
+
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  /athletes/:
+    get:
+      description: Get list of athletes.
+      responses:
+        200:
+          description: List of atlhletes.
+          schema:
+            type: array
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Athlete'
+                
+  /athletes/{athlete-id}:
+    parameters:
+      - $ref: '#/parameters/athlete-id'
+    get:
+      description: Get athlete by ID
+      responses:
+        200:
+          description: Get athlete by ID.
+          schema:
+            type: array
+            properties:
+              data:
+                $ref: '#/definitions/Athlete'
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Data:
+    type: array
+    
+  Athlete:
+    type: object
+    properties:
+      uid:
+        type: string
+      name:
+        type: string
+      email:
+        type: string
